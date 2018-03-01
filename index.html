@@ -1,0 +1,104 @@
+<html>
+
+<head>
+   
+
+
+</head>
+
+<body>
+<div style="width: 100%; height: 74px; border-bottom: 1px solid #ccc; margin-bottom:1em;">
+    <div style="width: 100%; margin: 0 auto;">
+        <div style="width: 810px; float: left;">
+            <h1 style="margin: .24em 0; font-family: Ubuntu, arial, helvetica, sans-serif; letter-spacing: -1px; color: #aaa;">
+                <img src="pharmbio_logo.png" style="position: relative; top: 6px; height: 36px; margin-right: .2em;">pharm<span style="color: #c00"><span>b.io</span></span> 
+                <span style="color: black; margin-left: 2em;color: #444;">Docking Profile as a Service (DPAAS)</span></h1>
+           
+        </div>
+                
+        <div style="width: 64px; float: right;">
+            <img src="uu_logo.png">
+        </div>
+    </div>
+</div>
+
+	<noscript>
+		<div
+			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+			Your web browser must have JavaScript enabled in order for this
+			application to display correctly.</div>
+	</noscript>
+
+    <div style="width: 44%; background-color: white; padding: 4px; font-family: sans-serif; float:left;">
+        <h3 style="margin-top: 0">DPAAS - Docking Profile as a Service</h3>
+        <i>Instructions</i>: Please enter one Smiles per line in the text box on the right and press Search Profile.
+        
+        <p>
+         Initially the service is available for compound profiles against 10 receptor models. Each model was trained using 2.2 million compounds from SureChEMBL molecule library. 
+         The models were created using our modelling strategy given in paper <b>"Efficient iterative Virtual Screening with 
+         Apache Spark and Conformal Prediction"</b> accepted in Journal of Cheminformatics.
+       
+        <p>
+        <b>Structure Based Docking Profile Predictions based on CPVS</b><br>
+        Laeeq Ahmed, Staffan Arvidsson, Arvid Berg, Jonathan Alvarsson, Wesley Schaal and Ola Spjuth<br>
+        [<i>In Progress</i>]
+    </div>
+    
+    <div class="panel-body" style="float:right; padding: 10px; font-family: sans-serif;">
+            <div class="form-group">
+                <textarea class="form-control" name="smiles" id="smiles" style="white-space: pre-wrap; width: 1000px; height: 220px; border-radius: 5px; resize: vertical;"  placeholder="SMILES here, one identifier per Line"></textarea>
+            </div>
+            <button type="button" onclick=master()>Search Profile</button>
+    </div>
+    <div>
+
+        <textarea id="demo" style="width: 600px; height: 220px;">Display Json Here</textarea>
+
+    </div>
+
+   
+        <script>
+            function master(){
+                //get predictions
+                var url1 = "http://localhost:9000/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                var predictions = getPredictions(url1, drawAndFillGrid)
+                 
+                //Draw Grid or table based on response
+                //Fill in the grid with json response and dock button
+                //call dock apiEndPoint on dock button    
+            }
+            function getPredictions(url,cFunction){
+        
+                var xmlhttp = new XMLHttpRequest();
+                var response;
+                xmlhttp.onreadystatechange = function() {
+                    
+                    if (this.readyState == 4 && this.status == 200) {
+                        cFunction(this);
+                    }
+                    
+                }; 
+                xmlhttp.open( "GET", url , true );
+                xmlhttp.send(null);
+            }
+            
+            function drawAndFillGrid(xmlhttp) {
+                // action goes here
+                //alert(xmlhttp.responseText);
+                var jsonObj = JSON.parse(xmlhttp.responseText);
+
+                document.getElementById("demo").innerHTML = xmlhttp.responseText; 
+                for (i=0;i<jsonObj.predictions.length;i++)
+                    alert(jsonObj.predictions[i].l_id);
+               
+            }
+
+           
+        </script>
+
+
+
+    <div id="error_label" style="color:red"></div>
+    <img id="image" style="display: block; margin: auto;"></img>
+</body>
+</html>
