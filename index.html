@@ -60,7 +60,7 @@
         <script>
             function master(){
                 //get predictions
-                var url1 = "http://localhost:9000/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                var url1 = "http://hiv1-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                 var predictions = getPredictions(url1, drawAndFillGrid)
                  
                 //Draw Grid or table based on response
