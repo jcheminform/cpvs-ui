@@ -1,7 +1,15 @@
 <html>
 
 <head>
-   
+        <style>
+                table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    padding: 15px;
+                }
+                </style>
 
 
 </head>
@@ -56,11 +64,18 @@
 
     </div>
 
+    <div>
+
+            <table id="myTable"></table>
+    </div>    
    
         <script>
+            var numOfReceptors = 1;
             function master(){
+                
+
                 //get predictions
-                var url1 = "http://hiv1-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                var url1 = "http://receptor1-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                 var predictions = getPredictions(url1, drawAndFillGrid)
                  
                 //Draw Grid or table based on response
@@ -75,22 +90,63 @@
                     
                     if (this.readyState == 4 && this.status == 200) {
                         cFunction(this);
+                    }else if(this.readyState == 4 && this.status == 400) 
+                    {
+                        document.getElementById("demo").innerHTML =  this.responseText;
                     }
+                        
                     
                 }; 
                 xmlhttp.open( "GET", url , true );
                 xmlhttp.send(null);
+                alert("From getPredictions")
             }
             
             function drawAndFillGrid(xmlhttp) {
                 // action goes here
-                //alert(xmlhttp.responseText);
+                alert("From drawAndFillGrid")
                 var jsonObj = JSON.parse(xmlhttp.responseText);
+                //Use numOfReceptors for coloums and
+                //jsonpredictions.length for rows
+                //Add extra row for Dock buttons,
+                //based on row, coloum, given buttons their id
+                
+                //First empty the ols table
+                for(var i = document.getElementById("myTable").rows.length; i > 0;i--)
+                {
+                    document.getElementById("myTable").deleteRow(i -1);
+                }
+                document.getElementById("demo").innerHTML =  xmlhttp.responseText;
+                    
 
-                document.getElementById("demo").innerHTML = xmlhttp.responseText; 
-                for (i=0;i<jsonObj.predictions.length;i++)
-                    alert(jsonObj.predictions[i].l_id);
-               
+
+                    var row = document.getElementById('myTable').insertRow(0);
+                    //Smiles ID at 0,0
+                    row.insertCell(0).innerHTML = "Smiles ID"
+                    //Filling the Smiles ID's in coloumn 1r,0c;2r,0c,3r,0c . . . .  
+                    for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
+                        {
+                            row = document.getElementById('myTable').insertRow(r);
+                            row.insertCell(0).innerHTML = jsonObj.predictions[r-1].l_id;
+                   
+                        }
+                        
+                    /*for (var col = 1, row = 0; col<=parseInt(numOfReceptors,10);col++)
+                        {
+                            var z = row.insertCell(col);
+                            z.innerHTML=jsonObj.predictions[0].r_pdbCode;
+                        }    
+                     */       
+                    /*    
+                    for(var r=1;r<=parseInt(jsonObj.predictions.length,10);r++)
+                    {
+                        var x=document.getElementById('myTable').insertRow(r);
+                        for(var c=0;c<parseInt(numOfReceptors,10);c++)  
+                        {
+                            var y=  x.insertCell(c);
+                            y.innerHTML="Row-"+r+" Column-"+c; 
+                        }
+                    }*/
             }
 
            
