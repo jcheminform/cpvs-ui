@@ -61,7 +61,7 @@
     </div>
     <div id="predictions" style="display:none;" >
         <h2 style="margin-left: 1%;">Predictions</h2>
-        <div style="width: 48%; height:20%; float:left; padding: 4px; font-family: sans-serif; overflow: auto;">
+        <div style="width: 96%; height:20%; float:left; padding: 4px; font-family: sans-serif; overflow: auto;">
             <table id="myTable"></table>
         </div>
     </div>
@@ -69,6 +69,7 @@
     <script>
         var numOfReceptors = 2;
         var tableCreated = false;
+        var counter = 0;
         function master()
         {
             //First empty the old table
@@ -86,7 +87,9 @@
                 var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                 var predictions = getPredictions(url1, drawAndFillGrid, receptor);
             }
+            
             tableCreated = false;
+            counter = 0;
             //TRY TO PASS RECEPTOR NUMBER TO drawAndFillGrid         	
             //Draw Grid or table based on response
             //Fill in the grid with json response and dock button
@@ -116,9 +119,6 @@
             {
                 // action goes here
                 var jsonObj = JSON.parse(xmlhttp.responseText);
-
-                //Appearance of div predictions
-                document.getElementById('predictions').style.display = "block";
 
                 //Use numOfReceptors for coloums and
                 //jsonpredictions.length for rows
@@ -157,10 +157,27 @@
                 //Creating cells and Filling the actual prediction
                 for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
                 {
+                    row = document.getElementById('myTable').rows[r];
+                    var noOfCells =document.getElementById("myTable").rows[r].cells.length;
+                    row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
+            	}
+                counter = counter +1;
+                //Add dock button and display of div predictions in for last request call
+                if (counter==numOfReceptors)
+                {   
+                    //Adding textbox and button for dock
+                    for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
+                    {
                            	row = document.getElementById('myTable').rows[r];
                             var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                           	row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
-            	}
+                           	row.insertCell(noOfCells).innerHTML = '<input type="text" name="PdbCode" placeholder="PDB CODE HERE">';
+                            row.insertCell(noOfCells+1).innerHTML = '<button type="button" onclick=dock()>Dock</button>';   
+            	    }
+                    document.getElementById('predictions').style.display = "block";
+                }
+            }
+
+            function dock(){
 
             }    
         </script>
