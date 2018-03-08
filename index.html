@@ -1,42 +1,39 @@
 <html>
 
 <head>
-        <style>
-                table, th, td {
+    <style>
+        table, td {
                     border: 1px solid black;
                     border-collapse: collapse;
                 }
-                th, td {
+                td {
                     padding: 15px;
                 }
-                </style>
+    </style>
 
 
 </head>
 
 <body>
-<div style="width: 100%; height: 74px; border-bottom: 1px solid #ccc; margin-bottom:1em;">
-    <div style="width: 100%; margin: 0 auto;">
-        <div style="width: 60%; float: left;">
-            <h1 style="margin: .24em 0; font-family: Ubuntu, arial, helvetica, sans-serif; letter-spacing: -1px; color: #aaa;">
-                <img src="pharmbio_logo.png" style="position: relative; top: 6px; height: 36px; margin-right: .2em;">pharm<span style="color: #c00"><span>b.io</span></span> 
-                <span style="color: black; margin-left: 2em;color: #444;">Docking Profile as a Service (DPAAS)</span></h1>
-           
+    <div style="width: 100%; height: 74px; border-bottom: 1px solid #ccc; margin-bottom:1em;">
+        <div style="width: 100%; margin: 0 auto;">
+            <div style="width: 60%; float: left;">
+                <h1 style="margin: .24em 0; font-family: Ubuntu, arial, helvetica, sans-serif; letter-spacing: -1px; color: #aaa;">
+                    <img src="pharmbio_logo.png" style="position: relative; top: 6px; height: 36px; margin-right: .2em;">pharm<span style="color: #c00"><span>b.io</span></span> 
+                    <span style="color: black; margin-left: 2em;color: #444;">Docking Profile as a Service (DPAAS)</span></h1>
+            </div>            
+            <div style="width: 64px; float: right;">
+                <img src="uu_logo.png">
+            </div>
         </div>
-                
-        <div style="width: 64px; float: right;">
-            <img src="uu_logo.png">
-        </div>
-    
     </div>
-</div>
 
-	<noscript>
-		<div
-			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-			Your web browser must have JavaScript enabled in order for this
-			application to display correctly.</div>
-	</noscript>
+    <noscript>
+	    <div
+		    style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+            Your web browser must have JavaScript enabled in order for this application to display correctly.
+        </div>
+    </noscript>
 
     <div style="width: 48%; background-color: white; padding: 4px; font-family: sans-serif; float:left;">
         <h3 style="margin-top: 0">DPAAS - Docking Profile as a Service</h3>
@@ -54,82 +51,87 @@
     </div>
     
     <div style="width: 48%; float:right; padding: 4px; font-family: sans-serif;">
-            <div class="form-group">
-                <textarea class="form-control" name="smiles" id="smiles" style="white-space: pre-wrap; width: 100%; height: 220px; border-radius: 7px; resize: vertical;"  placeholder="SMILES here, one identifier per Line"></textarea>
-            </div>
-            <button type="button" onclick=master()>Search Profile</button>
+        <div class="form-group">
+            <textarea class="form-control" name="smiles" id="smiles" style="white-space: pre-wrap; width: 100%; height: 220px; border-radius: 7px; resize: vertical;"  placeholder="SMILES here, one identifier per Line"></textarea>
+        </div>
+        <button type="button" onclick=master()>Search Profile</button>
     </div>
     <div style="width: 48%;">
-
-        <textarea id="demo" style="width: 100%; height: 220px;">Display Json Here</textarea>
-
+        <textarea id="demo" style="width: 100%; height: 220px;"></textarea>
     </div>
-
-    <div>
-
+    <div id="predictions" style="display:none;" >
+        <h2 style="margin-left: 1%;">Predictions</h2>
+        <div style="width: 48%; height:20%; float:left; padding: 4px; font-family: sans-serif; overflow: auto;">
             <table id="myTable"></table>
-    </div>    
+        </div>
+    </div>
    
-        <script>
-            var numOfReceptors = 1;
-            function master(){
-                
-
-                //get predictions
-                for (var receptor = 1; receptor <=numOfReceptors;receptor++){
-                	var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
-                	var predictions = getPredictions(url1, drawAndFillGrid, receptor)
-                 }
-                //TRY TO PASS RECEPTOR NUMBER TO drawAndFillGrid         	
-                //Draw Grid or table based on response
-                //Fill in the grid with json response and dock button
-                //call dock apiEndPoint on dock button    
+    <script>
+        var numOfReceptors = 2;
+        var tableCreated = false;
+        function master()
+        {
+            //First empty the old table
+            for(var i = document.getElementById("myTable").rows.length; i > 0;i--)
+            {
+                document.getElementById("myTable").deleteRow(i -1);
             }
-            function getPredictions(url,cFunction,receptor){
-        
-                var xmlhttp = new XMLHttpRequest();
-                var response;
-                xmlhttp.onreadystatechange = function() {
-                    
-                    if (this.readyState == 4 && this.status == 200) {
-                        cFunction(this,receptor);
-                    }else if(this.readyState == 4 && this.status == 400) 
+            document.getElementById("demo").innerHTML = ""
+                
+            //Hide div predictions
+            document.getElementById('predictions').style.display = "none";
+
+            //get predictions
+            for (var receptor = 1; receptor <=numOfReceptors;receptor++){
+                var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                var predictions = getPredictions(url1, drawAndFillGrid, receptor);
+            }
+            tableCreated = false;
+            //TRY TO PASS RECEPTOR NUMBER TO drawAndFillGrid         	
+            //Draw Grid or table based on response
+            //Fill in the grid with json response and dock button
+            //call dock apiEndPoint on dock button    
+        }
+            
+        function getPredictions(url,cFunction,receptor)
+        {
+            var xmlhttp = new XMLHttpRequest();
+            var response;
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    cFunction(this,receptor);
+                }else if(this.readyState == 4 && this.status == 400) 
                     {
                         document.getElementById("demo").innerHTML =  this.responseText;
                     }
-                        
-                    
-                }; 
+            }; 
                 xmlhttp.open( "GET", url , true );
                 xmlhttp.send(null);
-                alert("From getPredictions")
-            }
+                //alert("From getPredictions")
+        }
             
-            function drawAndFillGrid(xmlhttp,receptor) 
+        function drawAndFillGrid(xmlhttp,receptor) 
             {
                 // action goes here
-                alert("From drawAndFillGrid receptor is " + receptor);
                 var jsonObj = JSON.parse(xmlhttp.responseText);
+
+                //Appearance of div predictions
+                document.getElementById('predictions').style.display = "block";
+
                 //Use numOfReceptors for coloums and
                 //jsonpredictions.length for rows
                 //Add extra row for Dock buttons,
-                //based on row, coloum, given buttons their id
+                //based on row, coloumn, given buttons their id
                 
-                //First empty the old table
-                for(var i = document.getElementById("myTable").rows.length; i > 0;i--)
-                {
-                    document.getElementById("myTable").deleteRow(i -1);
-                }
-                document.getElementById("demo").innerHTML =  xmlhttp.responseText;
-                    
-
-				if (receptor == 1 ) 
+				if (tableCreated == false ) 
 				//Create all rows and colomn 1 with Smiles Id only once
 				{
                     var row = document.getElementById('myTable').insertRow(0);
                     
                     //Smiles ID at 0,0
-                    row.insertCell(0).innerHTML = "Smiles ID"
+                    row.insertCell(0).innerHTML = "<b>Smiles ID</b>"
                     
                     //Filling the Smiles ID's in coloumn 1r,0c;2r,0c,3r,0c . . . .  
                     for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
@@ -137,28 +139,30 @@
                            	row = document.getElementById('myTable').insertRow(r);
                            	row.insertCell(0).innerHTML = jsonObj.predictions[r-1].l_id;
                        	}
+                    tableCreated = true;       
                 }
+
+            
+                document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "\n" + xmlhttp.responseText;
                 
-                //Create One Coloumn for each receptor
-                    
+                //Create One Coloumn for each receptor   
                 row = document.getElementById('myTable').rows[0];
-            	var z = row.insertCell(receptor);
-            	z.innerHTML=jsonObj.predictions[0].r_pdbCode;
-                alert(jsonObj.predictions[0].r_pdbCode);
-                
+                var numOfCells =document.getElementById("myTable").rows[0].cells.length;
+                //To see every call is seperate
+                //alert("For receptor"+ receptor + " number of cells are " + numOfCells)
+            	var z = row.insertCell(numOfCells);
+            	z.innerHTML= '<b>' + jsonObj.predictions[0].r_pdbCode + '</b>';
+            
+                    
                 //Creating cells and Filling the actual prediction
                 for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
                 {
                            	row = document.getElementById('myTable').rows[r];
-                           	alert("Row is " + r);
-                           	row.insertCell(receptor).innerHTML = jsonObj.predictions[r-1].l_prediction;
+                            var noOfCells =document.getElementById("myTable").rows[r].cells.length;
+                           	row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
             	}
-            }
-                           
-                            
-    
 
-           
+            }    
         </script>
 
 
