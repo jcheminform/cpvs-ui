@@ -165,7 +165,7 @@
                     row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
             	}
                 counter = counter +1;
-                //Add dock button and display of div predictions in for last request call
+                //Add dock button and display div predictions in for last request call
                 if (counter==numOfReceptors)
                 {   
                     //Adding textbox and button for dock
@@ -209,18 +209,25 @@
             }
 
             function displayDocking(xmlhttp,btnId){
+            	jsonObj = JSON.parse(xmlhttp.responseText);
                 //alert("From displayDocking")
                 document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "\n" + xmlhttp.responseText;
                 alert("Number of Receptors are " + numOfReceptors);
                 var noOfCells = document.getElementById("myTable").rows[btnId].cells.length;
-                alert("NUmber of Cells in this row is " + noOfCells)
+                alert("Number of Cells in this row is " + noOfCells)
                 if(noOfCells==numOfReceptors+3)
                 {
                     //Create one more cell and show score there
+                    alert("From if");
+                    row = document.getElementById('myTable').rows[btnId];
+                    row.insertCell(noOfCells).innerHTML = jsonObj.Score.l_score;
                 }
                 else
                 {
-                    //No need to create cell. Only show score
+                	alert("from else");
+                    //No need to create cell. Only show score in existing cell
+                    row = document.getElementById('myTable').rows[btnId];
+                    row.cells[noOfCells-1].innerHTML = jsonObj.Score.l_score;
                 }
                 //document.getElementById('myTable')
             }    
