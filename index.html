@@ -86,7 +86,7 @@
     
    
     <script>
-        var numOfReceptors = 2;
+        var numOfReceptors = 1;
         var tableCreated = false;
         var counter = 0;
         //For calling the right url we will use static array
@@ -108,7 +108,6 @@
                 var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                 document.getElementById("search").disabled = true
                 var predictions = getPredictions(url1, drawAndFillGrid, receptor);
-                
             }
             
             tableCreated = false;
@@ -207,12 +206,15 @@
                 if(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1 != 0)
                 {
                     url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-cpvs-api.os.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
-                    var noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
+                    noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
                     row = document.getElementById('myTable').rows[btn.id];
-                    if(noOfCells==numOfReceptors+3)
-                        row.insertCell(noOfCells).innerHTML = '<div class="loader" id="loader" style="width:1%;height:1%; border: 8px solid white;border-radius: 50%;border-top: 8px solid #3498db;  ">';
+                    if(noOfCells==numOfReceptors+3){
+                        row.insertCell(noOfCells).innerHTML = '<div class="loader" id="loader" style="width:1%;height:1%; border: 8px solid white;border-radius: 50%;border-top: 8px solid #3498db;  ">';   
+                    }
                     else
-                        row.cells[noOfCells-1].innerHTML = '<div class="loader" id="loader">';
+                    {
+                        row.cells[noOfCells-1].innerHTML = '<div class="loader" id="loader" style="width:1%;height:1%; border: 8px solid white;border-radius: 50%;border-top: 8px solid #3498db;  >';   
+                    }
                     document.getElementById(btn.id).disabled = true
                     getDocking(url,displayDocking,btn.id);
                     
@@ -241,11 +243,12 @@
 
             function displayDocking(xmlhttp,btnId){
             	jsonObj = JSON.parse(xmlhttp.responseText);
-                var noOfCells = document.getElementById("myTable").rows[btnId].cells.length;
-                    //No need to create cell. Only show score in existing cell
-                    row = document.getElementById('myTable').rows[btnId];
-                    row.cells[noOfCells-1].innerHTML = jsonObj.Score.l_score;  
-                    document.getElementById(btnId).disabled = false
+                noOfCells = document.getElementById("myTable").rows[btnId].cells.length;
+                //No need to create cell. Only show score in existing cell
+                row = document.getElementById('myTable').rows[btnId];
+                row.cells[noOfCells-1].innerHTML = jsonObj.Score.l_score;  
+                document.getElementById(btnId).disabled = false
+                    
             }    
         </script>
 
