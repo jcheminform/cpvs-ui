@@ -9,13 +9,28 @@
                 td {
                     padding: 15px;
                 }
+        .loader {
+                    
+                    -webkit-animation: spin 1s linear infinite; /* Safari */
+                    animation: spin 1s linear infinite;
+                }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+                    0% { -webkit-transform: rotate(0deg); }
+                    100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
     </style>
 
 
 </head>
 
 <body>
-    <div style="width: 100%; height: 74px; border-bottom: 1px solid #ccc; margin-bottom:1em;">
+    <div  style="width: 100%; height: 74px; border-bottom: 1px solid #ccc; margin-bottom:1em;">
         <div style="width: 100%; margin: 0 auto;">
             <div style="width: 60%; float: left;">
                 <h1 style="margin: .24em 0; font-family: Ubuntu, arial, helvetica, sans-serif; letter-spacing: -1px; color: #aaa;">
@@ -36,15 +51,18 @@
     </noscript>
 
     <div style="width: 48%; background-color: white; padding: 4px; font-family: sans-serif; float:left;">
-        <h3 style="margin-top: 0">DPAAS - Docking Profile as a Service</h3>
+        <h2 style="margin-top: 0; background-color:#E8E8E8;">DPAAS - Docking Profile as a Service</h3>
         <i>Instructions</i>: Please enter one Smiles per line in the text box on the right and press Search Profile.
         
         <p>
          Initially the service is available for compound profiles against 10 receptor models. Each model was trained using 2.2 million compounds from SureChEMBL molecule library. 
          The models were created using our modelling strategy given in paper <b>"Efficient iterative Virtual Screening with 
          Apache Spark and Conformal Prediction"</b> accepted in Journal of Cheminformatics.
-       
-        <p>
+        
+         <p>Once the profiles are ready, each compund can be docked against a particular receptor by entering pdb code of available receptor and pressing the dock button. Score will
+             appear against each compound. </p>
+
+        <p>    
         <b>Structure Based Docking Profile Predictions based on CPVS</b><br>
         Laeeq Ahmed, Staffan Arvidsson, Arvid Berg, Jonathan Alvarsson, Wesley Schaal and Ola Spjuth
         [<i>In Progress</i>]<br>
@@ -54,21 +72,25 @@
         <div class="form-group">
             <textarea class="form-control" name="smiles" id="smiles" style="white-space: pre-wrap; width: 100%; height: 220px; border-radius: 7px; resize: vertical;"  placeholder="SMILES here, one identifier per Line"></textarea>
         </div>
-        <button type="button" onclick=master()>Search Profile</button>
+        <button type="button" id="search" onclick=master()>Search Profile</button>
     </div>
-    <div style="width: 48%;">
-        <textarea id="demo" style="width: 100%; height: 220px;"></textarea>
+    <div id="warning" style="display:none; color: red; width: 48%; float:right;  padding: 4px; font-family: sans-serif; ">
+        <h4 id="warning"></h4>
     </div>
-    <div id="predictions" style="display:none;" >
-        <h2 style="margin-left: 1%;">Predictions</h2>
-        <div style="width: 48%; height:20%; float:left; padding: 4px; font-family: sans-serif; overflow: auto;">
+    <div id="predictions" style="width: 96%; height:20%; float:left; display:none; font-family: sans-serif;" >
+        <h2 style="width: 50%; background-color:#E8E8E8">Predicted Profiles</h2>
+        <div style="width: 100%; height:100%; float:left; padding: 4px; font-family: sans-serif; overflow: auto;">
             <table id="myTable"></table>
         </div>
     </div>
+    
    
     <script>
         var numOfReceptors = 2;
         var tableCreated = false;
+        var counter = 0;
+        //For calling the right url we will use static array
+        var receptorArray = ['1AJV','4J51','3PGL','3O2X'];
         function master()
         {
             //First empty the old table
@@ -76,17 +98,21 @@
             {
                 document.getElementById("myTable").deleteRow(i -1);
             }
-            document.getElementById("demo").innerHTML = ""
-                
+            
             //Hide div predictions
             document.getElementById('predictions').style.display = "none";
+            document.getElementById('warning').style.display = "none";
 
             //get predictions
             for (var receptor = 1; receptor <=numOfReceptors;receptor++){
                 var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                document.getElementById("search").disabled = true
                 var predictions = getPredictions(url1, drawAndFillGrid, receptor);
+                
             }
+            
             tableCreated = false;
+            counter = 0;
             //TRY TO PASS RECEPTOR NUMBER TO drawAndFillGrid         	
             //Draw Grid or table based on response
             //Fill in the grid with json response and dock button
@@ -104,7 +130,9 @@
                     cFunction(this,receptor);
                 }else if(this.readyState == 4 && this.status == 400) 
                     {
-                        document.getElementById("demo").innerHTML =  this.responseText;
+                        document.getElementById('warning').style.display = "block";
+                        document.getElementById("warning").innerHTML =  "WARNING: " + this.responseText;
+                        document.getElementById("search").disabled = false
                     }
             }; 
                 xmlhttp.open( "GET", url , true );
@@ -116,9 +144,6 @@
             {
                 // action goes here
                 var jsonObj = JSON.parse(xmlhttp.responseText);
-
-                //Appearance of div predictions
-                document.getElementById('predictions').style.display = "block";
 
                 //Use numOfReceptors for coloums and
                 //jsonpredictions.length for rows
@@ -142,8 +167,6 @@
                     tableCreated = true;       
                 }
 
-            
-                document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "\n" + xmlhttp.responseText;
                 
                 //Create One Coloumn for each receptor   
                 row = document.getElementById('myTable').rows[0];
@@ -157,11 +180,72 @@
                 //Creating cells and Filling the actual prediction
                 for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
                 {
+                    row = document.getElementById('myTable').rows[r];
+                    var noOfCells =document.getElementById("myTable").rows[r].cells.length;
+                    row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
+            	}
+                counter = counter +1;
+                //Add dock button and display div predictions in for last request call
+                if (counter==numOfReceptors)
+                {   
+                    //Adding textbox and button for dock
+                    
+                    for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
+                    {
                            	row = document.getElementById('myTable').rows[r];
                             var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                           	row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
-            	}
+                           	row.insertCell(noOfCells).innerHTML = '<input type="text" id="txt' + r + '" name="PdbCode" placeholder="RECEPTOR PDB CODE">';
+                            row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Dock</button>';
+            	    }
+                    document.getElementById('predictions').style.display = "block";
+                }
+                document.getElementById("search").disabled = false
+            }
 
+            function dock(btn){
+                
+                if(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1 != 0)
+                {
+                    url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-cpvs-api.os.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
+                    var noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
+                    row = document.getElementById('myTable').rows[btn.id];
+                    if(noOfCells==numOfReceptors+3)
+                        row.insertCell(noOfCells).innerHTML = '<div class="loader" id="loader" style="width:1%;height:1%; border: 8px solid white;border-radius: 50%;border-top: 8px solid #3498db;  ">';
+                    else
+                        row.cells[noOfCells-1].innerHTML = '<div class="loader" id="loader">';
+                    document.getElementById(btn.id).disabled = true
+                    getDocking(url,displayDocking,btn.id);
+                    
+                }
+            }
+
+            function getDocking(url,callBackFunction,btnId){
+                var xmlhttp = new XMLHttpRequest();
+                var response;
+                xmlhttp.onreadystatechange = function() 
+                {
+                    if (this.readyState == 4 && this.status == 200) 
+                    {
+                        callBackFunction(this,btnId);
+                    }else if(this.readyState == 4 && this.status == 400) 
+                        {
+                            document.getElementById('warning').style.display = "block";
+                            document.getElementById("warning").innerHTML =  this.responseText;
+                        }
+                };
+
+                xmlhttp.open( "POST", url , true );
+                xmlhttp.send(null);
+                //alert("From getDocking")
+            }
+
+            function displayDocking(xmlhttp,btnId){
+            	jsonObj = JSON.parse(xmlhttp.responseText);
+                var noOfCells = document.getElementById("myTable").rows[btnId].cells.length;
+                    //No need to create cell. Only show score in existing cell
+                    row = document.getElementById('myTable').rows[btnId];
+                    row.cells[noOfCells-1].innerHTML = jsonObj.Score.l_score;  
+                    document.getElementById(btnId).disabled = false
             }    
         </script>
 
