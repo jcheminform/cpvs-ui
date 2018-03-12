@@ -213,7 +213,9 @@
                     }
                     else
                     {
-                        row.cells[noOfCells-1].innerHTML = '<div class="loader" id="loader" style="width:1%;height:1%; border: 8px solid white;border-radius: 50%;border-top: 8px solid #3498db;  >';   
+                        row.cells[noOfCells-1].innerHTML = "";
+                        row.cells[noOfCells-1].innerHTML = '<div class="loader" id="loader" style="width:1%;height:1%; border: 8px solid white;border-radius: 50%;border-top: 8px solid #3498db;  >';
+                            alert("from else");   
                     }
                     document.getElementById(btn.id).disabled = true
                     getDocking(url,displayDocking,btn.id);
