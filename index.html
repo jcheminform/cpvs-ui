@@ -120,11 +120,7 @@
                 }
             
                 tableCreated = false;
-                counter = 0;
-                //TRY TO PASS RECEPTOR NUMBER TO drawAndFillGrid         	
-                //Draw Grid or table based on response
-                //Fill in the grid with json response and dock button
-                //call dock apiEndPoint on dock button    
+                counter = 0;  
             }
         }
             
@@ -177,12 +173,9 @@
                     tableCreated = true;       
                 }
 
-                
                 //Create One Coloumn for each receptor   
                 row = document.getElementById('myTable').rows[0];
-                var numOfCells =document.getElementById("myTable").rows[0].cells.length;
-                //To see every call is seperate
-                
+                var numOfCells =document.getElementById("myTable").rows[0].cells.length;                
             	var z = row.insertCell(numOfCells);
             	z.innerHTML= '<b>' + jsonObj.predictions[0].r_pdbCode + '</b>';
             
@@ -199,7 +192,6 @@
                 if (counter==numOfReceptors)
                 {   
                     //Adding textbox and button for dock
-                    
                     for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
                     {
                            	row = document.getElementById('myTable').rows[r];
@@ -209,7 +201,7 @@
             	    }
                     document.getElementById('predictions').style.display = "block";
                 }
-                document.getElementById("search").disabled = false
+                document.getElementById("search").disabled = false;
                 document.getElementById("gifLoader").style.display = "none";
             }
 
@@ -220,6 +212,7 @@
                     url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-cpvs-api.os.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
                     noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
                     row = document.getElementById('myTable').rows[btn.id];
+                    //show loaders while molecules are docked
                     if(noOfCells==numOfReceptors+3){
                         row.insertCell(noOfCells).innerHTML = '<div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; width: 8px; height: 8px; ">';   
                     }
@@ -227,7 +220,7 @@
                     {
                         row.cells[noOfCells-1].innerHTML = '<div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; width: 8px; height: 8px; ">'; 
                     }
-                    document.getElementById(btn.id).disabled = true
+                    document.getElementById(btn.id).disabled = true;
                     getDocking(url,displayDocking,btn.id);
                     
                 }
@@ -258,13 +251,10 @@
                 //No need to create cell. Only show score in existing cell
                 row = document.getElementById('myTable').rows[btnId];
                 row.cells[noOfCells-1].innerHTML = jsonObj.Score.l_score;  
-                document.getElementById(btnId).disabled = false
+                document.getElementById(btnId).disabled = false;
                     
             }    
         </script>
-
-
-
     <div id="error_label" style="color:red"></div>
     <img id="image" style="display: block; margin: auto;"></img>
 </body>
