@@ -86,7 +86,8 @@
             <table id="myTable"></table>
         </div>
     </div>
-    
+    <div id="gifLoader" style="display:none;"><img src="5.gif" style="width: 5%; padding: 70px 0; ">
+    </div>
    
     <script>
         var numOfReceptors = 2;
@@ -109,7 +110,8 @@
             //get predictions
             for (var receptor = 1; receptor <=numOfReceptors;receptor++){
                 var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
-                document.getElementById("search").disabled = true
+                document.getElementById("search").disabled = true;
+                document.getElementById("gifLoader").style.display = "block";
                 var predictions = getPredictions(url1, drawAndFillGrid, receptor);
             }
             
@@ -134,7 +136,8 @@
                     {
                         document.getElementById('warning').style.display = "block";
                         document.getElementById("warning").innerHTML =  "WARNING: " + this.responseText;
-                        document.getElementById("search").disabled = false
+                        document.getElementById("search").disabled = false;
+                        document.getElementById("gifLoader").style.display = "block";
                     }
             }; 
                 xmlhttp.open( "GET", url , true );
@@ -202,6 +205,7 @@
                     document.getElementById('predictions').style.display = "block";
                 }
                 document.getElementById("search").disabled = false
+                document.getElementById("gifLoader").style.display = "none";
             }
 
             function dock(btn){
