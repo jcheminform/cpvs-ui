@@ -99,30 +99,33 @@
         var receptorArray = ['1AJV','4J51','3PGL','3O2X'];
         function master()
         {
-            //First empty the old table
-            for(var i = document.getElementById("myTable").rows.length; i > 0;i--)
-            {
-                document.getElementById("myTable").deleteRow(i -1);
-            }
+            if (document.getElementById("smiles").value != '' )
+            {    
+                //First empty the old table
+                for(var i = document.getElementById("myTable").rows.length; i > 0;i--)
+                {
+                    document.getElementById("myTable").deleteRow(i -1);
+                }
             
-            //Hide div predictions
-            document.getElementById('predictions').style.display = "none";
-            document.getElementById('warning').style.display = "none";
+                //Hide div predictions
+                document.getElementById('predictions').style.display = "none";
+                document.getElementById('warning').style.display = "none";
 
-            //get predictions
-            for (var receptor = 1; receptor <=numOfReceptors;receptor++){
-                var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
-                document.getElementById("search").disabled = true;
-                document.getElementById("gifLoader").style.display = "block";
-                var predictions = getPredictions(url1, drawAndFillGrid, receptor);
-            }
+                //get predictions
+                for (var receptor = 1; receptor <=numOfReceptors;receptor++){
+                    var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                    document.getElementById("search").disabled = true;
+                    document.getElementById("gifLoader").style.display = "block";
+                    var predictions = getPredictions(url1, drawAndFillGrid, receptor);
+                }
             
-            tableCreated = false;
-            counter = 0;
-            //TRY TO PASS RECEPTOR NUMBER TO drawAndFillGrid         	
-            //Draw Grid or table based on response
-            //Fill in the grid with json response and dock button
-            //call dock apiEndPoint on dock button    
+                tableCreated = false;
+                counter = 0;
+                //TRY TO PASS RECEPTOR NUMBER TO drawAndFillGrid         	
+                //Draw Grid or table based on response
+                //Fill in the grid with json response and dock button
+                //call dock apiEndPoint on dock button    
+            }
         }
             
         function getPredictions(url,cFunction,receptor)
