@@ -186,7 +186,7 @@
                     row = document.getElementById('myTable').rows[r];
                     var noOfCells =document.getElementById("myTable").rows[r].cells.length;
                     row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
-                    row.cells(noOfCells).style.backgroundColor = "yellow";
+                    //row.cells(noOfCells).style.backgroundColor = "yellow";
             	}
                 counter = counter +1;
                 //Add dock button and display div predictions in for last request call
