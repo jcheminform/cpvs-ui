@@ -186,7 +186,16 @@
                     row = document.getElementById('myTable').rows[r];
                     var noOfCells =document.getElementById("myTable").rows[r].cells.length;
                     row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
-                    row.cells(noOfCells).style.backgroundColor = "red";
+                    if (jsonObj.predictions[r-1].l_prediction=="Low-Score")
+                    {
+                    row.cells[noOfCells].style.backgroundColor = "#ff704d";
+                    }else if(jsonObj.predictions[r-1].l_prediction=="High-Score")
+                    {
+                    row.cells[noOfCells].style.backgroundColor = "#70db70";
+                    }else if(jsonObj.predictions[r-1].l_prediction=="UNKNOWN")
+                    {
+                    row.cells[noOfCells].style.backgroundColor = "#4d4dff";
+                    }
                     
             	}
                 counter = counter +1;
