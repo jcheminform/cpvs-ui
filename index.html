@@ -209,7 +209,7 @@
                            	row = document.getElementById('myTable').rows[r];
                             var noOfCells =document.getElementById("myTable").rows[r].cells.length;
                            	row.insertCell(noOfCells).innerHTML = '<input type="text" id="txt' + r + '" name="PdbCode" placeholder="RECEPTOR PDB CODE">';
-                            row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Dock</button>';
+                            row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    }
                     document.getElementById('predictions').style.display = "block";
                 }
