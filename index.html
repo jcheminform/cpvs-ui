@@ -28,7 +28,7 @@
                 }
         /* basic positioning */
 		.legend { list-style: none; }
-		.legend li { float: left; margin-right: 10px; }
+		.legend li { float: right; margin-right: 10px; }
 		.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
 		/* your colors */
 		.legend .high-scoring { background-color: #adebad; }
@@ -91,8 +91,9 @@
     <div id="predictions" style="width: 96%; height:40%; float:left; display:none; font-family: sans-serif;" >
         <table id="HeadingTable" style="width:100%; float:left;">
         <tr>
-    	<td><h2 style="background-color:#E8E8E8">Predicted Profiles</h2></td>
+    	<td><h2 style="background-color:#E8E8E8; width: 50%;">Predicted Profiles</h2></td>
     	<td><ul class="legend">
+    		<li><b>Predicted types  </b></li>
     		<li><span class="high-scoring"></span> High Scoring</li>
     		<li><span class="low-scoring"></span> Low Scoring</li>
    			<li><span class="unknown"></span> Unknown</li>
