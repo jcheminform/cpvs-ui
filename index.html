@@ -231,6 +231,14 @@
                            	row.insertCell(noOfCells).innerHTML = '<select class="receptorList" id="txt' + r + '" name="PdbCode" placeholder="RECEPTOR PDB CODE">';
                             row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    }
+            	    //Filling the select box
+            	    var sel = document.getElementByClassName('receptorList');
+					for(var i = 0; i < numOfReceptors; i++) {
+    					var opt = document.createElement('option');
+    					opt.innerHTML = receptorArray[i];
+    					opt.value = receptorArray[i];
+    					sel.appendChild(opt);
+					}
                     document.getElementById('predictions').style.display = "block";
                 }
                 document.getElementById("search").disabled = false;
