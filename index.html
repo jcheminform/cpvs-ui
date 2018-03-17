@@ -34,6 +34,17 @@
 		.legend .high-scoring { background-color: #adebad; }
 		.legend .low-scoring { background-color: #ff9999; }
 		.legend .unknown { background-color: #99ebff; }
+		.wrapper{
+    		border: 1px dashed red;
+    		height: 150px;
+    		overflow-x: hidden;
+    		overflow-y: scroll;
+    		width: 150px;
+ 		}
+ 		.wrapper .selection{
+   			width:150px;
+   			border:1px solid #ccc
+ 		}
     </style>
 
 
@@ -228,12 +239,12 @@
                     {
                         row = document.getElementById('myTable').rows[r];
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                        row.insertCell(noOfCells).innerHTML = '<select class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
+                        row.insertCell(noOfCells).innerHTML = '<div class="wrapper"><select class="receptorList" id="txt' + r + '" name="PdbCode"></select></div>';
                         row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    		
             	    	//Filling the select box
             	    	var sel = document.getElementById('txt' + r);
-						for(var i = 0; i < numOfReceptors; i++) 
+						for(var i = 0; i < 4; i++) 
 						{
     						var opt = document.createElement('option');
     						opt.innerHTML = receptorArray[i];
