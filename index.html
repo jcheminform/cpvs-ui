@@ -128,7 +128,7 @@
                     document.getElementById("myTable").deleteRow(i -1);
                 }
             
-                //Hide div predictions
+                //Hide div predictions and warning
                 document.getElementById('predictions').style.display = "none";
                 document.getElementById('warning').style.display = "none";
 
@@ -206,7 +206,7 @@
                 {
                     row = document.getElementById('myTable').rows[r];
                     var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                    //row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
+    
                     if (jsonObj.predictions[r-1].l_prediction=="Low-Score")
                     {
                     row.insertCell(noOfCells).style.backgroundColor = "#ff9999";
@@ -228,7 +228,7 @@
                     {
                            	row = document.getElementById('myTable').rows[r];
                             var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                           	row.insertCell(noOfCells).innerHTML = '<input type="text" id="txt' + r + '" name="PdbCode" placeholder="RECEPTOR PDB CODE">';
+                           	row.insertCell(noOfCells).innerHTML = '<select class="receptorList" id="txt' + r + '" name="PdbCode" placeholder="RECEPTOR PDB CODE">';
                             row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    }
                     document.getElementById('predictions').style.display = "block";
