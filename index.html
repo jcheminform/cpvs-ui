@@ -226,19 +226,24 @@
                     //Adding textbox and button for dock
                     for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
                     {
-                           	row = document.getElementById('myTable').rows[r];
-                            var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                           	row.insertCell(noOfCells).innerHTML = '<select class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
-                            row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
+                        row = document.getElementById('myTable').rows[r];
+                        var noOfCells =document.getElementById("myTable").rows[r].cells.length;
+                        row.insertCell(noOfCells).innerHTML = '<select class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
+                        row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
+            	    		
+            	    	//Filling the select box
+            	    	var sel = document.getElementById('txt' + r);
+						for(var i = 0; i < numOfReceptors; i++) 
+						{
+    						var opt = document.createElement('option');
+    						opt.innerHTML = receptorArray[i];
+    						opt.value = receptorArray[i];
+    						sel.appendChild(opt);
+						}
+						sel = "";	
             	    }
-            	    //Filling the select box
-            	    var sel = document.getElementById('txt1');
-					for(var i = 0; i < numOfReceptors; i++) {
-    					var opt = document.createElement('option');
-    					opt.innerHTML = receptorArray[i];
-    					opt.value = receptorArray[i];
-    					sel.appendChild(opt);
-					}
+            	    
+					
                     document.getElementById('predictions').style.display = "block";
                 }
                 document.getElementById("search").disabled = false;
