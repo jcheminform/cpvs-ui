@@ -228,11 +228,11 @@
                     {
                            	row = document.getElementById('myTable').rows[r];
                             var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                           	row.insertCell(noOfCells).innerHTML = '<select class="receptorList" id="txt' + r + '" name="PdbCode" placeholder="RECEPTOR PDB CODE">';
+                           	row.insertCell(noOfCells).innerHTML = '<select class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
                             row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    }
             	    //Filling the select box
-            	    var sel = document.getElementsByClassName('receptorList');
+            	    var sel = document.getElementById('txt1');
 					for(var i = 0; i < numOfReceptors; i++) {
     					var opt = document.createElement('option');
     					opt.innerHTML = receptorArray[i];
