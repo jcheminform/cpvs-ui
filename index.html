@@ -189,13 +189,13 @@
                     //row.insertCell(noOfCells).innerHTML = jsonObj.predictions[r-1].l_prediction;
                     if (jsonObj.predictions[r-1].l_prediction=="Low-Score")
                     {
-                    row.insertCell(noOfCells).style.backgroundColor = "#ff704d";
+                    row.insertCell(noOfCells).style.backgroundColor = "#ff9999";
                     }else if(jsonObj.predictions[r-1].l_prediction=="High-Score")
                     {
-                    row.insertCell(noOfCells).style.backgroundColor = "#70db70";
+                    row.insertCell(noOfCells).style.backgroundColor = "#adebad";
                     }else if(jsonObj.predictions[r-1].l_prediction=="UNKNOWN")
                     {
-                    row.insertCell(noOfCells).style.backgroundColor = "#4d4dff";
+                    row.insertCell(noOfCells).style.backgroundColor = "#99ebff";
                     }
                     
             	}
