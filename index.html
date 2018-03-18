@@ -21,9 +21,19 @@
 			-webkit-appearance: menulist;
 			-webkit-border-radius:0; 
 			border-radius:0;
-			overflow:auto;
-			max-height:250px; 
+			
+			 
 		}
+		
+		.scrollable{
+   			overflow: auto;
+   			width: 70px; /* adjust this width depending to amount of text to display */
+   			height: 80px; /* adjust height depending on number of options to display */
+   			border: 1px silver solid;
+ 		}
+ 		.scrollable select{
+   			border: none;
+ 		}
 
         /* Safari */
         @-webkit-keyframes spin {
@@ -237,7 +247,7 @@
                     {
                         row = document.getElementById('myTable').rows[r];
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                        row.insertCell(noOfCells).innerHTML = '<select size="1" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
+                        row.insertCell(noOfCells).innerHTML = '<div class="scrollable"><select size="2" multiple="multiple" id="txt' + r + '" name="PdbCode"></select></div>';
                         row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    		
             	    	//Filling the selectbox
