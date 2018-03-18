@@ -16,6 +16,12 @@
                     -webkit-animation: spin 1s linear infinite; /* Safari */
                     animation: spin 1s linear infinite;
                 }
+        select,
+ 		{
+			-webkit-appearance: menu;
+			-webkit-border-radius:0; 
+			border-radius:0; 
+		}
 
         /* Safari */
         @-webkit-keyframes spin {
@@ -229,7 +235,7 @@
                     {
                         row = document.getElementById('myTable').rows[r];
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                        row.insertCell(noOfCells).innerHTML = '<select size="2" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
+                        row.insertCell(noOfCells).innerHTML = '<select size="1" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
                         row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    		
             	    	//Filling the selectbox
