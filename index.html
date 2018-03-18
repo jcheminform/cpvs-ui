@@ -17,8 +17,7 @@
                     animation: spin 1s linear infinite;
                 }
         select
- 		{
- 			width: 50px;	
+ 		{	
 			-webkit-appearance: menu;
 			-webkit-border-radius:0; 
 			border-radius:0;
@@ -246,7 +245,7 @@
                     {
                         row = document.getElementById('myTable').rows[r];
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                        row.insertCell(noOfCells).innerHTML = '<div class="scrollable"><select size="2" id="txt' + r + '" name="PdbCode"></select></div>';
+                        row.insertCell(noOfCells).innerHTML = '<select size="2" id="txt' + r + '" name="PdbCode"></select>';
                         row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    		
             	    	//Filling the selectbox
