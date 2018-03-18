@@ -26,7 +26,7 @@
 		}
 		
 		.scrollable{
-   			overflow: auto;
+   			overflow: scroll;
    			width: 50px; /* adjust this width depending to amount of text to display */
    			height: 30px; /* adjust height depending on number of options to display */
    			border: 1px silver solid;
@@ -247,7 +247,7 @@
                     {
                         row = document.getElementById('myTable').rows[r];
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                        row.insertCell(noOfCells).innerHTML = '<div class="scrollable"><select size="2" multiple="multiple" id="txt' + r + '" name="PdbCode"></select></div>';
+                        row.insertCell(noOfCells).innerHTML = '<div class="scrollable"><select size="2" id="txt' + r + '" name="PdbCode"></select></div>';
                         row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    		
             	    	//Filling the selectbox
