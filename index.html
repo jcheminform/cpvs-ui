@@ -139,7 +139,7 @@
                 document.getElementById('predictions').style.display = "none";
                 document.getElementById('warning').style.display = "none";
 
-                //get predictions
+                //Call get predictions 
                 for (var receptor = 1; receptor <=numOfReceptors;receptor++){
                     var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                     document.getElementById("search").disabled = true;
