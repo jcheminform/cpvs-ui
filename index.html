@@ -16,11 +16,11 @@
                     -webkit-animation: spin 1s linear infinite; /* Safari */
                     animation: spin 1s linear infinite;
                 }
-        select
- 		{	
+        select,
+ 		{
 			-webkit-appearance: menu;
 			-webkit-border-radius:0; 
-			border-radius:0;
+			border-radius:0; 
 		}
 
         /* Safari */
@@ -124,7 +124,7 @@
         var tableCreated = false;
         var counter = 0;
         //For calling the right url we will use static array
-        var receptorArray = ['1AJV','4J51','3PGL','3O2X', '2AJV','3J51','4PGL','5O2X', '6AJV','7J51','8PGL','9O2X', '10JV','1151','12GL','132X'];
+        var receptorArray = ['1AJV','4J51','3PGL','3O2X'];
         function master()
         {
             if (document.getElementById("smiles").value != '' )
@@ -139,7 +139,7 @@
                 document.getElementById('predictions').style.display = "none";
                 document.getElementById('warning').style.display = "none";
 
-                //Call get predictions 
+                //get predictions
                 for (var receptor = 1; receptor <=numOfReceptors;receptor++){
                     var url1 = "http://receptor"+receptor+"-cpvs-api.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                     document.getElementById("search").disabled = true;
@@ -235,12 +235,12 @@
                     {
                         row = document.getElementById('myTable').rows[r];
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                        row.insertCell(noOfCells).innerHTML = '<select size="2" id="txt' + r + '" name="PdbCode"></select>';
+                        row.insertCell(noOfCells).innerHTML = '<select size="1" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
                         row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
             	    		
             	    	//Filling the selectbox
             	    	var sel = document.getElementById('txt' + r);
-						for(var i = 0; i < 16; i++) 
+						for(var i = 0; i < 4; i++) 
 						{
     						var opt = document.createElement('option');
     						opt.innerHTML = receptorArray[i];
