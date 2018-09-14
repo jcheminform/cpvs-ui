@@ -261,7 +261,7 @@
                 
                 if(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1 != 0)
                 {
-                    url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-cpvs-api.os.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
+                    url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-ptpaas.os.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
                     noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
                     row = document.getElementById('myTable').rows[btn.id];
                     //show loaders while molecules are docked
