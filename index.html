@@ -37,8 +37,8 @@
 		.legend li { float: right; margin-right: 10px; }
 		.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
 		/* your colors */
-		.legend .high-scoring { background-color: #adebad; }
-		.legend .low-scoring { background-color: #ff9999; }
+		.legend .low-scoring { background-color: #adebad; }
+		.legend .high-scoring { background-color: #ff9999; }
 		.legend .unknown { background-color: #99ebff; }
 		
     </style>
@@ -72,12 +72,16 @@
         <i>Instructions</i>: Please enter one Smiles per line in the text box on the right and press Search Profile.
         
         <p>
-         Initially the service is available for compound profiles against 10 receptor models. Each model was trained using 2.2 million compounds from SureChEMBL molecule library. 
+         Initially the service is available for compound profiles against 9 receptor models. Each model was trained using 2.3 million clean drug-like compounds downloaded from ZINC molecular database. 
          The models were created using our modelling strategy given in paper <b>"Efficient iterative Virtual Screening with 
          Apache Spark and Conformal Prediction"</b> accepted in Journal of Cheminformatics.
         
          <p>Once the profiles are ready, each compund can be docked against a particular receptor by entering pdb code of available receptor and pressing the dock button. Score will
-             appear against each compound. </p>
+                appear against each compound. 
+             
+         <p>   
+                <b>IMPORTANT NOTE:</b><br> 
+             AutoDock Vina has been used for docking. A ligand with low score generally means a higher affinity. Similarly, prediction of low-score or green means higher affinity and vise versa.  </p>
 
         <p>    
         <b>Predicting Target Profiles as a Service with Confidence</b><br>
