@@ -85,7 +85,7 @@
 
         <p>    
         <b>Predicting Target Profiles as a Service with Confidence</b><br>
-        Laeeq Ahmed, Hiba Alogheli,  Staffan Arvidsson, Arvid Berg, Jonathan Alvarsson, Wesley Schaal and Ola Spjuth
+        Laeeq Ahmed, Hiba Alogheli,  Staffan Arvidsson, Arvid Berg, Jonathan Alvarsson, Wesley Schaal, Erwin Laure and Ola Spjuth
         [<i>In Progress</i>]<br>
     </div>
    
@@ -102,15 +102,22 @@
     <div id="predictions" style="width: 100%%; height:40%; float:left; display:none; font-family: sans-serif;" >
         <table id="HeadingTable" style="width:100%; float:left;">
         <tr>
-    	<td style="width:48%;"><h2 style="background-color:#E8E8E8;">Predicted Profiles</h2></td>
-    	<td style="width:48%;">
-    		<ul class="legend">
-    			<li><span class="unknown"></span> Unknown</li>
-    			<li><span class="low-scoring"></span> Low Scoring</li>
-   				<li><span class="high-scoring"></span> High Scoring</li>
-   				<li><b>Prediction types  </b></li>
-			</ul>
-		</td>
+    	<td style="width:48%;float: left;"><h2 style="background-color:#E8E8E8;">Predicted Profiles</h2></td>
+    	<td style="width:48%;float: right">
+                <ul class="legend" style="float: left;">
+                        <li><span class="unknown"></span> Both P-Val (0,1) > or < ε </li>
+                        <li><span class="low-scoring"></span> only P-Val (1) > ε</li>
+                        <li><span class="high-scoring"></span> only P-Val (0) > ε </li>
+                           <li><b>P-Values  </b></li>
+                </ul>
+            
+    		    <ul class="legend" style="float: right;">
+    			    <li><span class="unknown"></span> Unknown</li>
+    			    <li><span class="low-scoring"></span> Low Scoring</li>
+   				    <li><span class="high-scoring"></span> High Scoring</li>
+   				    <li><b>Prediction types  </b></li>
+			    </ul>
+		    </td>
   		</tr>
   		</table>
         <div style="width: 100%; height:100%; float:left; padding: 4px; font-family: sans-serif; overflow: auto;">
