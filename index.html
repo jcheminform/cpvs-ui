@@ -1,324 +1,349 @@
 <html>
 
-<head>
-    <style>
-        table, td {
-                    border: 1px solid white;
-                    border-collapse: collapse;
-                    font-size: small;
-                   
+        <head>
+            <style>
+                table, td {
+                            border: 1px solid white;
+                            border-collapse: collapse;
+                            font-size: small;
+                           
+                        }
+                        td {
+                            padding: 10px;
+                        }
+                .loader {
+                            border-radius: 50%;
+                            -webkit-animation: spin 1s linear infinite; /* Safari */
+                            animation: spin 1s linear infinite;
+                        }
+                select,
+                 {
+                    -webkit-appearance: menu;
+                    -webkit-border-radius:0; 
+                    border-radius:0; 
                 }
-                td {
-                    padding: 10px;
+        
+                /* Safari */
+                @-webkit-keyframes spin {
+                            0% { -webkit-transform: rotate(0deg); }
+                            100% { -webkit-transform: rotate(360deg); }
                 }
-        .loader {
-    				border-radius: 50%;
-                    -webkit-animation: spin 1s linear infinite; /* Safari */
-                    animation: spin 1s linear infinite;
-                }
-        select,
- 		{
-			-webkit-appearance: menu;
-			-webkit-border-radius:0; 
-			border-radius:0; 
-		}
-
-        /* Safari */
-        @-webkit-keyframes spin {
-                    0% { -webkit-transform: rotate(0deg); }
-                    100% { -webkit-transform: rotate(360deg); }
-        }
-        @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-        /* basic positioning */
-		.legend { list-style: none; }
-		.legend li { float: right; margin-right: 10px; }
-		.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
-		/* your colors */
-		.legend .low-scoring { background-color: #adebad; }
-		.legend .high-scoring { background-color: #ff9999; }
-		.legend .unknown { background-color: #99ebff; }
-		
-    </style>
-
-
-</head>
-
-<body>
-    <div  style="width: 100%; height: 74px; border-bottom: 1px solid #ccc; margin-bottom:1em;">
-        <div style="width: 100%; margin: 0 auto;">
-            <div style="width: 90%; float: left;">
-                <h1 style="margin: .24em 0; font-family: Ubuntu, arial, helvetica, sans-serif; letter-spacing: -1px; color: #aaa;">
-                    <img src="pharmbio_logo.png" style="position: relative; top: 6px; height: 36px; margin-right: .2em;">pharm<span style="color: #c00"><span>b.io</span></span> 
-                    <span style="color: black; margin-left: 2em;color: #444;">Predicting Target Profiles as a Service (PTPAAS)</span></h1>
-            </div>            
-            <div style="width: 64px; float: right;">
-                <img src="uu_logo.png">
+                @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                /* basic positioning */
+                .legend { list-style: none; }
+                .legend li { float: right; margin-right: 10px; }
+                .legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
+                /* your colors */
+                .legend .low-scoring { background-color: #adebad; }
+                .legend .high-scoring { background-color: #ff9999; }
+                .legend .unknown { background-color: #99ebff; }
+                
+            </style>
+        
+        
+        </head>
+        
+        <body>
+            <div  style="width: 100%; height: 74px; border-bottom: 1px solid #ccc; margin-bottom:1em;">
+                <div style="width: 100%; margin: 0 auto;">
+                    <div style="width: 90%; float: left;">
+                        <h1 style="margin: .24em 0; font-family: Ubuntu, arial, helvetica, sans-serif; letter-spacing: -1px; color: #aaa;">
+                            <img src="pharmbio_logo.png" style="position: relative; top: 6px; height: 36px; margin-right: .2em;">pharm<span style="color: #c00"><span>b.io</span></span> 
+                            <span style="color: black; margin-left: 2em;color: #444;">Predicting Target Profiles as a Service (PTPAAS)</span></h1>
+                    </div>            
+                    <div style="width: 64px; float: right;">
+                        <img src="uu_logo.png">
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <noscript>
-	    <div
-		    style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-            Your web browser must have JavaScript enabled in order for this application to display correctly.
-        </div>
-    </noscript>
-
-    <div style="width: 48%; background-color: white; padding: 4px; font-family: sans-serif; float:left; font-size: small;">
-        <h2 style="margin-top: 0; background-color:#E8E8E8;">PTPAAS - Predicting Target Profiles as a Service with Confidence</h3>
-        <i>Instructions</i>: Please enter one Smiles per line in the text box on the right and press Search Profile.
         
-        <p>
-         Initially the service is available for compound profiles against 9 receptor models. Each model was trained using 2.3 million <i>clean drug-like</i> compounds downloaded from ZINC molecular database. 
-         The models were created using our modelling strategy given in paper <b>"Efficient iterative Virtual Screening with 
-         Apache Spark and Conformal Prediction"</b> accepted in Journal of Cheminformatics.
+            <noscript>
+                <div
+                    style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+                    Your web browser must have JavaScript enabled in order for this application to display correctly.
+                </div>
+            </noscript>
         
-         <p>Once the profiles are ready, each compund can be docked against a particular receptor by entering pdb code of available receptor and pressing the dock button. Score will
-                appear against each compound. 
-             
-         <p>   
-                <b>IMPORTANT NOTE:</b><br> 
-             AutoDock Vina has been used for docking. A ligand with low score generally means a higher affinity. Similarly, prediction of low-score or green means higher affinity and vise versa.  </p>
-
-        <p>    
-        <b>Predicting Target Profiles as a Service with Confidence</b><br>
-        Laeeq Ahmed, Hiba Alogheli,  Staffan Arvidsson, Arvid Berg, Jonathan Alvarsson, Wesley Schaal, Erwin Laure and Ola Spjuth
-        [<i>In Progress</i>]<br>
-    </div>
-   
-    <div style="width: 48%; float:right; padding: 4px; font-family: sans-serif; font-size: large;">
-        <div class="form-group">
-            <textarea class="form-control" name="smiles" id="smiles" style="white-space: pre-wrap; width: 100%; height: 220px; border-radius: 7px; resize: vertical;"  placeholder="SMILES here, one identifier per Line"></textarea>
-        </div>
-        <button type="button" id="search" onclick=master()>Search Profile</button>
-        <div id="warning" style="display:none; color: red; width: 48%; float:right;  padding: 4px; font-family: sans-serif; font-size: small; ">
-            <h4 id="warning"></h4>
-        </div>
-    </div>
-    
-    <div id="predictions" style="width: 100%%; height:40%; float:left; display:none; font-family: sans-serif;" >
-        <table id="HeadingTable" style="width:100%; float:left;">
-        <tr>
-    	<td style="width:48%;float: left;"><h2 style="background-color:#E8E8E8;">Predicted Profiles</h2></td>
-    	<td style="width:48%;float: right">
-                <ul class="legend" style="float: left;">
-                        <li><span class="unknown"></span> Both P-Val (0,1) > or < ε </li>
-                        <li><span class="low-scoring"></span> only P-Val (1) > ε</li>
-                        <li><span class="high-scoring"></span> only P-Val (0) > ε </li>
-                           <li><b>P-Values  </b></li>
-                </ul>
+            <div style="width: 48%; background-color: white; padding: 4px; font-family: sans-serif; float:left; font-size: small;">
+                <h2 style="margin-top: 0; background-color:#E8E8E8;">PTPAAS - Predicting Target Profiles as a Service with Confidence</h3>
+                <i>Instructions</i>: Please enter one Smiles per line in the text box on the right and press Search Profile.
+                
+                <p>
+                 Initially the service is available for compound profiles against 9 receptor models. Each model was trained using 2.3 million <i>clean drug-like</i> compounds downloaded from ZINC molecular database. 
+                 The models were created using our modelling strategy given in paper <b>"Efficient iterative Virtual Screening with 
+                 Apache Spark and Conformal Prediction"</b> accepted in Journal of Cheminformatics.
+                
+                 <p>Once the profiles are ready, each compund can be docked against a particular receptor by entering pdb code of available receptor and pressing the dock button. Score will
+                        appear against each compound. 
+                     
+                 <p>   
+                        <b>IMPORTANT NOTE:</b><br> 
+                     AutoDock Vina has been used for docking. A ligand with low score generally means a higher affinity. Similarly, prediction of low-score or green means higher affinity and vise versa.  </p>
+        
+                <p>    
+                <b>Predicting Target Profiles as a Service with Confidence</b><br>
+                Laeeq Ahmed, Hiba Alogheli, Staffan Arvidsson, Arvid Berg, Jonathan Alvarsson, Wesley Schaal, Erwin Laure and Ola Spjuth
+                [<i>In Progress</i>]<br>
+            </div>
+           
+            <div style="width: 48%; float:right; padding: 4px; font-family: sans-serif; font-size: large;">
+                <div class="form-group">
+                    <textarea class="form-control" name="smiles" id="smiles" style="white-space: pre-wrap; width: 100%; height: 220px; border-radius: 7px; resize: vertical;"  placeholder="SMILES here, one identifier per Line"></textarea>
+                </div>
+                <button type="button" id="search" onclick=master()>Search Profile</button>
+                <div id="warning" style="display:none; color: red; width: 48%; float:right;  padding: 4px; font-family: sans-serif; font-size: small; ">
+                        <h4 id="warning"></h4>
+                    </div>
+                
+                   <!-- onsumbit="event.preventDefault();"-->
+                <!-- Field Set for Adding new File -->    
+                <fieldset style="padding: 4px; margin-top: 20px; width: 30%; border-radius: 7px; border-width: thin; font-family: sans-serif; font-size: large;">
+                    <legend style="font-family: sans-serif; font-size: medium;">New Model Request</legend>
+                    <form  action="http://localhost:9000/upload"  method="post" enctype="multipart/form-data">
+                        <div style="padding: 4px;">
+                            <label style="font-family: sans-serif; font-size: medium; margin-top: 5px;" for="file">Add Receptor (pdbqt)</label>
+                            <input style="margin-top: 5px;" type="file" id="file" name="receptorFile" accept=".pdbqt">
+                        
+                            <input style="margin-top: 5px;" type="submit" value="Submit" id="search">
+                        </div>
+                   </form></fieldset>
+                
+            </div>
             
-    		    <ul class="legend" style="float: right;">
-    			    <li><span class="unknown"></span> Unknown</li>
-    			    <li><span class="low-scoring"></span> Low Scoring</li>
-   				    <li><span class="high-scoring"></span> High Scoring</li>
-   				    <li><b>Prediction types  </b></li>
-			    </ul>
-		    </td>
-  		</tr>
-  		</table>
-        <div style="width: 100%; height:100%; float:left; padding: 4px; font-family: sans-serif; overflow: auto;">
-            <table id="myTable"></table>
-        </div>
+            
         
-    </div>
-   
-    <div id="gifLoader" style="display:none; width: 96%; height:40%; float:left;">
-    <img src="5.gif" style="width: 50px; margin-top:10%; margin-left: 50%; ">
-    </div>
-   
-    <script>
-        var numOfReceptors = 2;
-        var tableCreated = false;
-        var counter = 0;
-        //For calling the right url we will use static array
-        var receptorArray = ['1RT2','1E66','1QCF','1SRJ','3ERD','3LN1','2TMN','18NU','1B8O'];
-        function master()
-        {
-            if (document.getElementById("smiles").value != '' )
-            {    
-                //First empty the old table
-                for(var i = document.getElementById("myTable").rows.length; i > 0;i--)
+                <div id="predictions" style="width: 100%; height:40%; float:left; display:none; font-family: sans-serif;" >
+                    <div style="width:28%;float: left;"><h2 style="background-color:#E8E8E8;">Predicted Profiles</h2></div> 
+                    <div style="width:68%; float:right; font-family: sans-serif; font-size: x-small;">    
+                    <table id="HeadingTable" style="width:100%; float:right;">
+                            <tr>
+                                <td>
+                                    <ul class="legend" style="float: left;">
+                                        <li><span class="unknown"></span> Both P-Val (0,1) > or < ε </li>
+                                        <li><span class="low-scoring"></span> only P-Val (1) > ε</li>
+                                        <li><span class="high-scoring"></span> only P-Val (0) > ε </li>
+                                           <li><b>P-Values  </b></li>
+                                    </ul>
+                                </td>
+                                <td>    
+                                    <ul class="legend" style="float: left;">
+                                        <li><span class="unknown"></span> Unknown</li>
+                                        <li><span class="low-scoring"></span> Low Scoring</li>
+                                           <li><span class="high-scoring"></span> High Scoring</li>
+                                           <li><b>Prediction types  </b></li>
+                                    </ul>
+                                </td>
+                              </tr>
+                          </table>
+                        </div>
+                        <div style="width: 100%; height:100%; float:left; padding: 4px; font-family: sans-serif; overflow: auto;">
+                            <table id="myTable"></table>
+                        </div>
+                        
+                    </div>
+        
+           
+            <div id="gifLoader" style="display:none; width: 96%; height:40%; float:left;">
+            <img src="5.gif" style="width: 50px; margin-top:10%; margin-left: 50%; ">
+            </div>
+           
+            <script>
+                var numOfReceptors = 9;
+                var tableCreated = false;
+                var counter = 0;
+                //For calling the right url we will use static array
+                var receptorArray = ['1RT2','1E66','1QCF','1SRJ','3ERD','3LN1','2TMN','18NU','1B8O'];
+                function master()
                 {
-                    document.getElementById("myTable").deleteRow(i -1);
+                    if (document.getElementById("smiles").value != '' )
+                    {    
+                        //First empty the old table
+                        for(var i = document.getElementById("myTable").rows.length; i > 0;i--)
+                        {
+                            document.getElementById("myTable").deleteRow(i -1);
+                        }
+                    
+                        //Hide div predictions and warning. Only Display when they are filled in drawAndFillGrill method
+                        document.getElementById('predictions').style.display = "none";
+                        document.getElementById('warning').style.display = "none";
+        
+                        //get predictions
+                        for (var receptor = 1; receptor <=numOfReceptors;receptor++){
+                            var url1 = "http://receptor"+receptor+"-ptpaas.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                            document.getElementById("search").disabled = true;
+                            document.getElementById("gifLoader").style.display = "block";
+                            var predictions = getPredictions(url1, drawAndFillGrid, receptor);
+                        }
+                    
+                        tableCreated = false;
+                        counter = 0;  
+                    }
                 }
-            
-                //Hide div predictions and warning
-                document.getElementById('predictions').style.display = "none";
-                document.getElementById('warning').style.display = "none";
-
-                //get predictions
-                for (var receptor = 1; receptor <=numOfReceptors;receptor++){
-                    var url1 = "http://receptor"+receptor+"-ptpaas.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
-                    document.getElementById("search").disabled = true;
-                    document.getElementById("gifLoader").style.display = "block";
-                    var predictions = getPredictions(url1, drawAndFillGrid, receptor);
-                }
-            
-                tableCreated = false;
-                counter = 0;  
-            }
-        }
-            
-        function getPredictions(url,cFunction,receptor)
-        {
-            var xmlhttp = new XMLHttpRequest();
-            var response;
-            xmlhttp.onreadystatechange = function() 
-            {
-                if (this.readyState == 4 && this.status == 200) 
+                    
+                function getPredictions(url,cFunction,receptor)
                 {
-                    cFunction(this,receptor);
-                }else if(this.readyState == 4 && this.status == 400) 
+                    var xmlhttp = new XMLHttpRequest();
+                    var response;
+                    xmlhttp.onreadystatechange = function() 
                     {
-                        document.getElementById('warning').style.display = "block";
-                        document.getElementById("warning").innerHTML =  "WARNING: " + this.responseText;
+                        if (this.readyState == 4 && this.status == 200) 
+                        {
+                            cFunction(this,receptor);
+                        }else if(this.readyState == 4 && this.status == 400) 
+                            {
+                                document.getElementById('warning').style.display = "block";
+                                document.getElementById("warning").innerHTML =  "WARNING: " + this.responseText;
+                                document.getElementById("search").disabled = false;
+                                document.getElementById("gifLoader").style.display = "none";
+                            }
+                    }; 
+                        xmlhttp.open( "GET", url , true );
+                        xmlhttp.send(null);
+                        //alert("From getPredictions")
+                }
+                
+                function drawAndFillGrid(xmlhttp,receptor) 
+                    {
+                        // action goes here
+                        var jsonObj = JSON.parse(xmlhttp.responseText);
+                        //alert("The output is " + xmlhttp.responseText);
+                        //Use numOfReceptors for coloums and
+                        //jsonpredictions.length for rows
+                        //Add extra row for Dock buttons,
+                        //based on row, coloumn, given buttons their id
+                        //alert("pValues length is " + jsonObj.pValues.length)
+        
+                        
+                        if (tableCreated == false ) 
+                        //Create all rows and colomn 1 with Smiles Id only once
+                        {
+                            var row = document.getElementById('myTable').insertRow(0);
+                            
+                            //Smiles ID at 0,0
+                            row.insertCell(0).innerHTML = "<b>Smiles ID</b>"
+                            
+                            //Filling the Smiles ID's in coloumn 1r,0c;2r,0c,3r,0c . . . .  
+                            for (var r = 1; r<=parseInt(jsonObj.pValues.length,10); r++ )
+                                   {
+                                       row = document.getElementById('myTable').insertRow(r);
+                                       row.insertCell(0).innerHTML = jsonObj.pValues[r-1].l_id;
+                                   }
+                            tableCreated = true;       
+                        }
+                            
+                        //Create One Coloumn for each receptor   
+                        row = document.getElementById('myTable').rows[0];
+                        var numOfCells =document.getElementById("myTable").rows[0].cells.length;                
+                        var z = row.insertCell(numOfCells);
+                        z.innerHTML= '<b>' + jsonObj.pValues[0].r_pdbCode + '</b>';
+                    
+                            
+                        //Creating cells and Filling the actual prediction
+                        for (var r = 1; r<=parseInt(jsonObj.pValues.length,10); r++ )
+                        {
+                            row = document.getElementById('myTable').rows[r];
+                            var noOfCells =document.getElementById("myTable").rows[r].cells.length;
+                            if ((jsonObj.pValues[r-1].pv_0 > 0.2) && (jsonObj.pValues[r-1].pv_1 <= 0.2))
+                            {
+                                row.insertCell(noOfCells).style.backgroundColor = "#ff9999";
+                                row.cells[noOfCells].title = jsonObj.pValues[r-1].pv_0 + ", " + jsonObj.pValues[r-1].pv_1;        
+                            }else if((jsonObj.pValues[r-1].pv_1 > 0.2) && (jsonObj.pValues[r-1].pv_0 <= 0.2))
+                            {
+                                row.insertCell(noOfCells).style.backgroundColor = "#adebad";
+                                row.cells[noOfCells].title = jsonObj.pValues[r-1].pv_0 + ", " + jsonObj.pValues[r-1].pv_1;
+                            }else
+                            {
+                                row.insertCell(noOfCells).style.backgroundColor = "#99ebff";
+                                row.cells[noOfCells].title = jsonObj.pValues[r-1].pv_0 + ", " + jsonObj.pValues[r-1].pv_1;
+                            }
+                            
+                        }
+                        counter = counter +1;
+                        //Add dock button and display div predictions in for last request call
+                        if (counter==numOfReceptors)
+                        {   
+                            //Adding textbox and button for dock
+                            for (var r = 1; r<=parseInt(jsonObj.pValues.length,10); r++ )
+                            {
+                                row = document.getElementById('myTable').rows[r];
+                                var noOfCells =document.getElementById("myTable").rows[r].cells.length;
+                                row.insertCell(noOfCells).innerHTML = '<select size="1" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
+                                row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
+                                    
+                                //Filling the select box
+                                var sel = document.getElementById('txt' + r);
+                                for(var i = 0; i < numOfReceptors; i++) 
+                                {
+                                    var opt = document.createElement('option');
+                                    opt.innerHTML = receptorArray[i];
+                                    opt.value = receptorArray[i];
+                                    sel.appendChild(opt);
+                                }
+                                sel = "";	
+                            }
+                            
+                            
+                            document.getElementById('predictions').style.display = "block";
+                        }
                         document.getElementById("search").disabled = false;
                         document.getElementById("gifLoader").style.display = "none";
                     }
-            }; 
-                xmlhttp.open( "GET", url , true );
-                xmlhttp.send(null);
-                //alert("From getPredictions")
-        }
-            
-        function drawAndFillGrid(xmlhttp,receptor) 
-            {
-                // action goes here
-                var jsonObj = JSON.parse(xmlhttp.responseText);
-
-                //Use numOfReceptors for coloums and
-                //jsonpredictions.length for rows
-                //Add extra row for Dock buttons,
-                //based on row, coloumn, given buttons their id
-                
-				if (tableCreated == false ) 
-				//Create all rows and colomn 1 with Smiles Id only once
-				{
-                    var row = document.getElementById('myTable').insertRow(0);
-                    
-                    //Smiles ID at 0,0
-                    row.insertCell(0).innerHTML = "<b>Smiles ID</b>"
-                    
-                    //Filling the Smiles ID's in coloumn 1r,0c;2r,0c,3r,0c . . . .  
-                    for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
-                       	{
-                           	row = document.getElementById('myTable').insertRow(r);
-                           	row.insertCell(0).innerHTML = jsonObj.predictions[r-1].l_id;
-                       	}
-                    tableCreated = true;       
-                }
-
-                //Create One Coloumn for each receptor   
-                row = document.getElementById('myTable').rows[0];
-                var numOfCells =document.getElementById("myTable").rows[0].cells.length;                
-            	var z = row.insertCell(numOfCells);
-            	z.innerHTML= '<b>' + jsonObj.predictions[0].r_pdbCode + '</b>';
-            
-                    
-                //Creating cells and Filling the actual prediction
-                for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
-                {
-                    row = document.getElementById('myTable').rows[r];
-                    var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-    
-                    if (jsonObj.predictions[r-1].l_prediction=="Low-Score")
-                    {
-                    row.insertCell(noOfCells).style.backgroundColor = "#ff9999";
-                    }else if(jsonObj.predictions[r-1].l_prediction=="High-Score")
-                    {
-                    row.insertCell(noOfCells).style.backgroundColor = "#adebad";
-                    }else if(jsonObj.predictions[r-1].l_prediction=="UNKNOWN")
-                    {
-                    row.insertCell(noOfCells).style.backgroundColor = "#99ebff";
-                    }
-                    
-            	}
-                counter = counter +1;
-                //Add dock button and display div predictions in for last request call
-                if (counter==numOfReceptors)
-                {   
-                    //Adding textbox and button for dock
-                    for (var r = 1; r<=parseInt(jsonObj.predictions.length,10); r++ )
-                    {
-                        row = document.getElementById('myTable').rows[r];
-                        var noOfCells =document.getElementById("myTable").rows[r].cells.length;
-                        row.insertCell(noOfCells).innerHTML = '<select size="1" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
-                        row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
-            	    		
-            	    	//Filling the select box
-            	    	var sel = document.getElementById('txt' + r);
-						for(var i = 0; i < numOfReceptors; i++) 
-						{
-    						var opt = document.createElement('option');
-    						opt.innerHTML = receptorArray[i];
-    						opt.value = receptorArray[i];
-    						sel.appendChild(opt);
-						}
-						sel = "";	
-            	    }
-            	    
-					
-                    document.getElementById('predictions').style.display = "block";
-                }
-                document.getElementById("search").disabled = false;
-                document.getElementById("gifLoader").style.display = "none";
-            }
-
-            function dock(btn){
-                
-                if(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1 != 0)
-                {
-                    url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-ptpaas.os.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
-                    noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
-                    row = document.getElementById('myTable').rows[btn.id];
-                    //show loaders while molecules are docked
-                    if(noOfCells==numOfReceptors+3){
-                        row.insertCell(noOfCells).innerHTML = '<div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; width: 8px; height: 8px; ">';   
-                    }
-                    else
-                    {
-                        row.cells[noOfCells-1].innerHTML = '<div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; width: 8px; height: 8px; ">'; 
-                    }
-                    document.getElementById(btn.id).disabled = true;
-                    getDocking(url,displayDocking,btn.id);
-                    
-                }
-            }
-
-            function getDocking(url,callBackFunction,btnId){
-                var xmlhttp = new XMLHttpRequest();
-                var response;
-                xmlhttp.onreadystatechange = function() 
-                {
-                    if (this.readyState == 4 && this.status == 200) 
-                    {
-                        callBackFunction(this,btnId);
-                    }else if(this.readyState == 4 && this.status == 400) 
+        
+                    function dock(btn){
+                        
+                        if(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1 != 0)
                         {
-                            document.getElementById('warning').style.display = "block";
-                            document.getElementById("warning").innerHTML =  this.responseText;
+                            url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-ptpaas.os.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
+                            noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
+                            row = document.getElementById('myTable').rows[btn.id];
+                            //show loaders while molecules are docked
+                            if(noOfCells==numOfReceptors+3){
+                                row.insertCell(noOfCells).innerHTML = '<div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; width: 8px; height: 8px; ">';   
+                            }
+                            else
+                            {
+                                row.cells[noOfCells-1].innerHTML = '<div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; width: 8px; height: 8px; ">'; 
+                            }
+                            document.getElementById(btn.id).disabled = true;
+                            getDocking(url,displayDocking,btn.id);
+                            
                         }
-                };
-
-                xmlhttp.open( "POST", url , true );
-                xmlhttp.send(null);
-            }
-
-            function displayDocking(xmlhttp,btnId){
-            	jsonObj = JSON.parse(xmlhttp.responseText);
-                noOfCells = document.getElementById("myTable").rows[btnId].cells.length;
-                //No need to create cell. Only show score in existing cell
-                row = document.getElementById('myTable').rows[btnId];
-                row.cells[noOfCells-1].innerHTML = jsonObj.Score.l_score;  
-                document.getElementById(btnId).disabled = false;
-                    
-            }    
-        </script>
-    <div id="error_label" style="color:red"></div>
-    <img id="image" style="display: block; margin: auto;"></img>
-</body>
-</html>
+                    }
+        
+                    function getDocking(url,callBackFunction,btnId){
+                        var xmlhttp = new XMLHttpRequest();
+                        var response;
+                        xmlhttp.onreadystatechange = function() 
+                        {
+                            if (this.readyState == 4 && this.status == 200) 
+                            {
+                                callBackFunction(this,btnId);
+                            }else if(this.readyState == 4 && this.status == 400) 
+                                {
+                                    document.getElementById('warning').style.display = "block";
+                                    document.getElementById("warning").innerHTML =  this.responseText;
+                                }
+                        };
+        
+                        xmlhttp.open( "POST", url , true );
+                        xmlhttp.send(null);
+                    }
+        
+                    function displayDocking(xmlhttp,btnId){
+                        jsonObj = JSON.parse(xmlhttp.responseText);
+                        noOfCells = document.getElementById("myTable").rows[btnId].cells.length;
+                        //No need to create cell. Only show score in existing cell
+                        row = document.getElementById('myTable').rows[btnId];
+                        row.cells[noOfCells-1].innerHTML = jsonObj.Score.l_score;  
+                        document.getElementById(btnId).disabled = false;
+                            
+                    } 
+                </script>
+            <div id="error_label" style="color:red"></div>
+            <img id="image" style="display: block; margin: auto;"></img>
+        </body>
+        </html>
+        
