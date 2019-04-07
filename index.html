@@ -72,7 +72,7 @@
         <i>Instructions</i>: Please enter one Smiles per line in the text box on the right and press Search Profile.
         
         <p>
-         Initially the service is available for compound profiles against 9 receptor models. Each model was trained using 2.3 million <i>clean drug-like</i> compounds downloaded from ZINC molecular database. 
+         Initially the service is available for compound profiles against 7 receptor models. Each model was trained using 2.3 million <i>clean drug-like</i> compounds downloaded from ZINC molecular database. 
          The models were created using our modelling strategy given in paper <b>"Efficient iterative Virtual Screening with 
          Apache Spark and Conformal Prediction"</b> accepted in Journal of Cheminformatics.
         
@@ -114,7 +114,7 @@
         <!-- Field Set for Adding new File -->    
         <fieldset style="padding: 4px; margin-top: 20px; width: 30%; border-radius: 7px; border-width: thin; font-family: sans-serif; font-size: large;">
             <legend style="font-family: sans-serif; font-size: medium;">New Model Request</legend>
-            <form  action="http://localhost:9000/upload"  method="post" enctype="multipart/form-data">
+            <form  action="http://uploadfile-ptpaas.os.pharmb.io/upload"  method="post" enctype="multipart/form-data">
                 <div style="padding: 4px;">
                     <label style="font-family: sans-serif; font-size: medium; margin-top: 5px;" for="file">Add Receptor (pdbqt)</label>
                     <input style="margin-top: 5px;" type="file" id="file" name="receptorFile" accept=".pdbqt">
@@ -163,7 +163,7 @@
     </div>
    
     <script>
-        var numOfReceptors = 4;
+        var numOfReceptors = 7;
         var tableCreated = false;
         var counter = 0;
         var NoOfRows = 0;
@@ -182,7 +182,7 @@
         //alert("Value at 0,0 is " + predictionArray[1][0]);
 
         //For calling the right url we will use static array
-        var receptorArray = ['1RT2','1E66','1QCF','1SRJ','3ERD','3LN1','2TMN','18NU','1B8O'];
+        var receptorArray = ['1RT2','1E66','1QCF','3ERD','3LN1','18NU','1B8O'];
         function master()
         {
             if (document.getElementById("smiles").value != '' )
