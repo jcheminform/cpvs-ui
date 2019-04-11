@@ -200,7 +200,7 @@
                 
                 //get predictions
                 for (var receptor = 1; receptor <=numOfReceptors;receptor++){
-                    var url1 = "http://receptor"+receptor+"-dpass.apps.osdev.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                    var url1 = "http://receptor"+receptor+"-dpass.apps.osdev.pharmb.io/pvalues/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                     document.getElementById("search").disabled = true;
                     document.getElementById("gifLoader").style.display = "block";
                     var predictions = getPredictions(url1, drawAndFillGrid, receptor);
