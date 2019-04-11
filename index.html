@@ -114,7 +114,7 @@
         <!-- Field Set for Adding new File -->    
         <fieldset style="padding: 4px; margin-top: 20px; width: 30%; border-radius: 7px; border-width: thin; font-family: sans-serif; font-size: large;">
             <legend style="font-family: sans-serif; font-size: medium;">New Model Request</legend>
-            <form  action="http://uploadfile-ptpaas.os.pharmb.io/upload"  method="post" enctype="multipart/form-data">
+            <form  action="http://uploadfile-dpass.apps.osdev.pharmb.io/upload"  method="post" enctype="multipart/form-data">
                 <div style="padding: 4px;">
                     <label style="font-family: sans-serif; font-size: medium; margin-top: 5px;" for="file">Add Receptor (pdbqt)</label>
                     <input style="margin-top: 5px;" type="file" id="file" name="receptorFile" accept=".pdbqt">
@@ -197,10 +197,10 @@
                 document.getElementById('predictions').style.display = "none";
                 //This get enabled when we have an incorrect smile
                 document.getElementById('warning').style.display = "none";
-
+                
                 //get predictions
                 for (var receptor = 1; receptor <=numOfReceptors;receptor++){
-                    var url1 = "http://receptor"+receptor+"-ptpaas.os.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
+                    var url1 = "http://receptor"+receptor+"-dpass.apps.osdev.pharmb.io/predictions/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                     document.getElementById("search").disabled = true;
                     document.getElementById("gifLoader").style.display = "block";
                     var predictions = getPredictions(url1, drawAndFillGrid, receptor);
@@ -340,7 +340,7 @@
                 
                 if(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1 != 0)
                 {
-                    url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-ptpaas.os.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
+                    url = "http://receptor"+(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1)+"-dpass.apps.osdev.pharmb.io/dockings/" + encodeURIComponent(document.getElementById('myTable').rows[btn.id].cells[0].innerHTML);
                     noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
                     row = document.getElementById('myTable').rows[btn.id];
                     //show loaders while molecules are docked
