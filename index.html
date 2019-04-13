@@ -197,9 +197,10 @@
                 document.getElementById('predictions').style.display = "none";
                 //This get enabled when we have an incorrect smile
                 document.getElementById('warning').style.display = "none";
-                
+
                 //get predictions
                 for (var receptor = 1; receptor <=numOfReceptors;receptor++){
+                    //alert("IN " + receptor)
                     var url1 = "http://receptor"+receptor+"-dpass.apps.osdev.pharmb.io/pvalues/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                     document.getElementById("search").disabled = true;
                     document.getElementById("gifLoader").style.display = "block";
@@ -230,11 +231,11 @@
             }; 
                 xmlhttp.open( "GET", url , true );
                 xmlhttp.send(null);
-                //alert("From getPredictions")
         }
         
         function drawAndFillGrid(xmlhttp,receptor) 
             {
+                //alert("From drawAndFillGrid")
                 // action goes here
                 var jsonObj = JSON.parse(xmlhttp.responseText);
                 //alert("The output is " + xmlhttp.responseText);
