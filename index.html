@@ -313,8 +313,9 @@
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
                         row.insertCell(noOfCells).innerHTML = '<select size="1" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
                         row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run QVina</button>';
-                        document.getElementById("warning").innerHTML = ""
-                        document.getElementById("warning").style.color = "red"
+                        document.getElementById("warning").innerHTML = "";
+                        document.getElementById("warning").style.color = "red";
+                        document.getElementById('warning').style.display = "none";
             	    	//Filling the select box
             	    	var sel = document.getElementById('txt' + r);
 						for(var i = 0; i < numOfReceptors; i++) 
@@ -379,6 +380,7 @@
                         {
                             document.getElementById("warning").style.color = "Blue";
                             document.getElementById("warning").innerHTML = "Info: Some jobs are running: try again after a while by pressing Run Qvina button";
+                            document.getElementById('warning').style.display = "block";
                             document.getElementById(btnId).disabled = false;
                         }
                 };
