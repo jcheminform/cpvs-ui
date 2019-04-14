@@ -374,16 +374,15 @@
                             document.getElementById('warning').style.display = "block";
                             document.getElementById("warning").innerHTML =  this.responseText;
                         }
-                        else if(this.readyState == 4)
+                        else
                         {
-                            alert("Received for button " + btnId + " Readystate: " + this.readystate + " Status: " + this.status)
-                            callBackFunction(this,btnId);
+                            row.cells[noOfCells-1].innerHTML = "Try again after a while";
+                            document.getElementById(btnId).disabled = false;
                         }
                 };
 
                 xmlhttp.open( "POST", url , true );
                 xmlhttp.send(null);
-                //alert("Calling docking for Button " + btnId + " with URL " + url)
             }
 
             function displayDocking(xmlhttp,btnId){
