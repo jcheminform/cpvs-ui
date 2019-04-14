@@ -364,7 +364,7 @@
                 var response;
                 xmlhttp.onreadystatechange = function() 
                 {
-                    alert("Received response for button " + btnId + " for URL " + url + " and readystate = " + this.readystate + " and status " + this.status)
+                    
                     if (this.readyState == 4 && this.status == 200) 
                     {
                         //Calling the callback function displayDocking once got response from server
@@ -374,11 +374,15 @@
                             document.getElementById('warning').style.display = "block";
                             document.getElementById("warning").innerHTML =  this.responseText;
                         }
+                        else if(this.readyState == 4)
+                        {
+                            alert("Received for button " + btnId + " Readystate: " + this.readystate + " Status: " + this.status)
+                        }
                 };
 
                 xmlhttp.open( "POST", url , true );
                 xmlhttp.send(null);
-                alert("Calling docking for Button " + btnId + " with URL " + url)
+                //alert("Calling docking for Button " + btnId + " with URL " + url)
             }
 
             function displayDocking(xmlhttp,btnId){
