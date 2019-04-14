@@ -220,6 +220,7 @@
             {
                 if (this.readyState == 4 && this.status == 200) 
                 {
+                    //Calling the callback function drawAndFillGrid once got response from server
                     cFunction(this,receptor);
                 }else if(this.readyState == 4 && this.status == 400) 
                     {
@@ -363,8 +364,10 @@
                 var response;
                 xmlhttp.onreadystatechange = function() 
                 {
+                    alert("Received response for button " + btnId + " for URL " + url + " and readystate = " + this.readystate + " and status " + this.status)
                     if (this.readyState == 4 && this.status == 200) 
                     {
+                        //Calling the callback function displayDocking once got response from server
                         callBackFunction(this,btnId);
                     }else if(this.readyState == 4 && this.status == 400) 
                         {
@@ -375,6 +378,7 @@
 
                 xmlhttp.open( "POST", url , true );
                 xmlhttp.send(null);
+                alert("Calling docking for Button " + btnId + " with URL " + url)
             }
 
             function displayDocking(xmlhttp,btnId){
