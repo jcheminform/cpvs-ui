@@ -313,9 +313,7 @@
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
                         row.insertCell(noOfCells).innerHTML = '<select size="1" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
                         row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run QVina</button>';
-                        document.getElementById("warning").innerHTML = "";
-                        document.getElementById("warning").style.color = "red";
-                        document.getElementById('warning').style.display = "none";
+                        
             	    	//Filling the select box
             	    	var sel = document.getElementById('txt' + r);
 						for(var i = 0; i < numOfReceptors; i++) 
@@ -341,6 +339,11 @@
             }
 
             function dock(btn){
+                
+                //Removing info if existed
+                document.getElementById("warning").innerHTML = "";
+                document.getElementById('warning').style.display = "none";
+                document.getElementById("warning").style.color = "red";
                 
                 if(receptorArray.indexOf(document.getElementById("txt" + btn.id).value.toUpperCase()) + 1 != 0)
                 {
