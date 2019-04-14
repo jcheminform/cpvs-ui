@@ -377,6 +377,7 @@
                         else if(this.readyState == 4)
                         {
                             alert("Received for button " + btnId + " Readystate: " + this.readystate + " Status: " + this.status)
+                            callBackFunction(this,btnId);
                         }
                 };
 
