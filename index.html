@@ -81,7 +81,7 @@
              
          <p>   
                 <b>IMPORTANT NOTE:</b><br> 
-             AutoDock Vina has been used for docking. A ligand with low score generally means a higher affinity. Similarly, prediction of low-score or green means higher affinity and vise versa.  </p>
+             Quick Vina 2.0 has been used for docking. A ligand with low score generally means a higher affinity. Similarly, prediction of low-score or green means higher affinity and vise versa.  </p>
 
         <p>    
         <b>Predicting Target Profiles as a Service with Confidence</b><br>
@@ -312,8 +312,9 @@
                         row = document.getElementById('myTable').rows[r];
                         var noOfCells =document.getElementById("myTable").rows[r].cells.length;
                         row.insertCell(noOfCells).innerHTML = '<select size="1" class="receptorList" id="txt' + r + '" name="PdbCode"></select>';
-                        row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run AutoDock</button>';
-            	    		
+                        row.insertCell(noOfCells+1).innerHTML = '<button type="button" id="' + r + '" onclick=dock(this)>Run QVina</button>';
+                        document.getElementById("warning").innerHTML = ""
+                        document.getElementById("warning").style.color = "red"
             	    	//Filling the select box
             	    	var sel = document.getElementById('txt' + r);
 						for(var i = 0; i < numOfReceptors; i++) 
@@ -376,7 +377,8 @@
                         }
                         else if (this.readyState == 4)
                         {
-                            row.cells[noOfCells-1].innerHTML = "Try again after a while";
+                            document.getElementById("warning").style.color = "Blue";
+                            document.getElementById("warning").innerHTML = "Info: Some jobs are running: try again after a while by pressing Run Qvina button";
                             document.getElementById(btnId).disabled = false;
                         }
                 };
