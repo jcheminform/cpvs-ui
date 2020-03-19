@@ -163,23 +163,11 @@
     </div>
    
     <script>
-        var numOfReceptors = 7;
         var tableCreated = false;
         var counter = 0;
         var NoOfRows = 0;
 
-        //Declaring 0 filled array for saving pValues to redraw them 
-        //let array = Array(5).fill().map(() => Array(numOfReceptors).fill(0));  // First Array is for row, second Array is for colomn
-        //array[0][0] = 10;
-        //alert("Value at 0,0 is " + array[0][0])         //HERE HERE NOW ASSIGN VALUES TO THE ARRAY
-        //alert("Value at 0,1 is " + array[0][1])
-
         var predictionArray = [[]];
-        //predictionArray[0]=[];
-        //predictionArray[0][0]= 1;
-        //predictionArray[1]=[];
-        //predictionArray[1][0]= 2;
-        //alert("Value at 0,0 is " + predictionArray[1][0]);
 
         //For calling the right url we will use static array
         var receptorArray = ['1RT2','1E66','1QCF','3ERD','3LN1','1BNU','1B8O'];
@@ -199,7 +187,7 @@
                 document.getElementById('warning').style.display = "none";
 
                 //get predictions
-                for (var receptor = 1; receptor <=numOfReceptors;receptor++){
+                for (var receptor = 1; receptor <=receptorArray.length;receptor++){
                     //alert("IN " + receptor)
                     var url1 = "http://receptor"+receptor+"-dpass.apps.osdev.pharmb.io/pvalues/?smiles=" + encodeURIComponent(document.getElementById('smiles').value)
                     document.getElementById("search").disabled = true;
@@ -240,7 +228,7 @@
                 // action goes here
                 var jsonObj = JSON.parse(xmlhttp.responseText);
                 //alert("The output is " + xmlhttp.responseText);
-                //Use numOfReceptors for coloums and
+                //Use receptorArray.length for coloums and
                 //jsonpredictions.length for rows
                 //Add extra row for Dock buttons,
                 //based on row, coloumn, given buttons their id
@@ -304,7 +292,7 @@
                 counter = counter +1;
 
                 //Add dock button and display div predictions in for last request call
-                if (counter==numOfReceptors)
+                if (counter==receptorArray.length)
                 {   
                     //Adding textbox and button for dock
                     for (var r = 1; r<=parseInt(jsonObj.pValues.length,10); r++ )
@@ -316,7 +304,7 @@
                         
             	    	//Filling the select box
             	    	var sel = document.getElementById('txt' + r);
-						for(var i = 0; i < numOfReceptors; i++) 
+						for(var i = 0; i < receptorArray.length; i++) 
 						{
     						var opt = document.createElement('option');
     						opt.innerHTML = receptorArray[i];
@@ -351,7 +339,7 @@
                     noOfCells = document.getElementById("myTable").rows[btn.id].cells.length;
                     row = document.getElementById('myTable').rows[btn.id];
                     //show loaders while molecules are docked
-                    if(noOfCells==numOfReceptors+3){
+                    if(noOfCells==receptorArray.length+3){
                         row.insertCell(noOfCells).innerHTML = '<div class="loader" style="border: 8px solid #f3f3f3; border-top: 8px solid #3498db; width: 8px; height: 8px; ">';   
                     }
                     else
@@ -409,7 +397,7 @@
                 for (var row = 0; row < NoOfRows; row++ ){
                     var currentRow = document.getElementById('myTable').rows[row +1];
                 
-                    for (var col = 0; col < numOfReceptors; col++ )
+                    for (var col = 0; col < receptorArray.length; col++ )
                         {
                             
                             var str = predictionArray[row][col];
