@@ -69,24 +69,24 @@
 
     <div style="width: 48%; background-color: white; padding: 4px; font-family: sans-serif; float:left; font-size: small;">
         <h2 style="margin-top: 0; background-color:#E8E8E8;">PTPAAS - Predicting Target Profiles as a Service with Confidence</h3>
-        <i>Instructions</i>: Please enter one Smiles per line in the text box on the right and press Search Profile.
+        <b>Instructions:</b> Please enter one Smiles per line in the text box on the right and press Search Profile.
         
         <p>
          Initially the service is available for compound profiles against 7 receptor models. Each model was trained using 2.3 million <i>clean drug-like</i> compounds downloaded from ZINC molecular database. 
          The models were created using our modelling strategy given in paper <b>"Efficient iterative Virtual Screening with 
          Apache Spark and Conformal Prediction"</b> accepted in Journal of Cheminformatics.
         
-         <p>Once the profiles are ready, each compund can be docked against a particular receptor by entering pdb code of available receptor and pressing the <b>Run QVina</b> button. Score will
+         <p>Once the profiles are ready, each compund can be docked against a particular receptor by selecting pdb code of available receptor and pressing the <b>Run QVina</b> button. Score will
                 appear against each compound. 
-             
-         <p>   
+         <p>        
                 <b>IMPORTANT NOTE:</b><br> 
              Quick Vina 2.0 has been used for docking. A ligand with low score generally means a higher affinity. Similarly, prediction of low-score or green means higher affinity and vise versa.  </p>
-
+        <p>
+                <b>Tutorial:</b> A tutorial for running CPVSAPI on a local system and creating custom docker images for new receptors is available on <a href="https://github.com/laeeq80/cpvsAPI#cpvsapi" target="_blank">GitHub.</a>
         <p>    
-        <b>Predicting Target Profiles with Confidence as aService using Docking Scores</b><br>
-        Laeeq Ahmed, Hiba Alogheli, Staffan Arvidsson, Arvid Berg, Jonathan Alvarsson, Wesley Schaal, Erwin Laure and Ola Spjuth
-        [<i>In Review Process</i>]<br>
+        <b>Predicting Target Profiles with Confidence as a Service using Docking Scores</b><br>
+        Laeeq Ahmed, Hiba Alogheli, Staffan Arvidsson Mc Shane, Arvid Berg, Jonathan Alvarsson, Anders Larsson, Wesley Schaal, Erwin Laure and Ola Spjuth
+        <br>
     </div>
    
     <div style="width: 48%; float:right; padding: 4px; font-family: sans-serif; font-size: large;">
